@@ -1,0 +1,23 @@
+# AprilTag 3 code parameters
+# Find descriptions in apriltag/include/apriltag.h:struct apriltag_detector
+#                      apriltag/include/apriltag.h:struct apriltag_family
+tag_family:        'tag36h11' # options: tagStandard52h13, tagStandard41h12, tag36h11, tag25h9, tag16h5, tagCustom48h12, tagCircle21h7, tagCircle49h12
+tag_border:        1          # default: 1  Width of the tag outer (circumference) black border
+tag_threads:       2          # default: 2  How many threads should the AprilTag 2 core algorithm use?
+tag_decimate:      1.0        # default: 1.0  Detection of quads can be done on a lower-resolution image, improving speed at a cost of pose accuracy and a slight decrease in detection rate. 
+                              #               Decoding the binary payload is still done at full resolution.
+tag_blur:          0.0        # default: 0.0  What Gaussian blur should be applied to the segmented image (used for quad detection?) Parameter is the standard deviation in pixels.
+tag_refine_edges:  1          # default: 1  When non-zero, the edges of the each quad are adjusted to "snap to" strong gradients nearby. 
+                              #             This is useful when decimation is employed, as it can increase the quality of the initial quad estimate substantially. Generally recommended to be on (1). 
+                              #             Very computationally inexpensive. Option is ignored if tag_decimate==1.0.
+tag_refine_decode: 0          # default: 0  When non-zero, detections are refined in a way intended to increase the number of detected tags. 
+                              #             Especially effective for very small tags near the resolution threshold (e.g. 10px on a side).
+tag_refine_pose:   0          # default: 0  When non-zero, detections are refined in a way intended to increase the accuracy of the extracted pose. 
+                              #             This is done by maximizing the contrast around the black and white border of the tag. 
+                              #             This generally increases the number of successfully detected tags, though not as effectively (or quickly) as tag_refine_decode.
+tag_debug:         0          # default: 0
+max_hamming_dist:  2          # default: 2  Tunable parameter with 2 being a good choice - values >=3 consume large amounts of memory. Choose the largest value possible.
+# Other parameters
+publish_tf:        true       # default: false  Enable publishing the tag-camera relative poses on the /tf topic.
+# camera_frame:camera         # default: camera  Camera frame name.
+# publish_tag_detections_image: 0          # default:0  Enable publishing on the /tag_detections_image topic.
